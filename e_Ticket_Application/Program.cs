@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDBContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("StudentPortal")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("e_Ticket")));
 
 var app = builder.Build();
 
@@ -29,5 +29,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+AppDBInitializer.Seeding(app);
 
 app.Run();
