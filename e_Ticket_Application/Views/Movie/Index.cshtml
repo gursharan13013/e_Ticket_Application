@@ -1,0 +1,83 @@
+﻿@* Define model*@
+@model IEnumerable<Movie>
+
+@*Define ViewData*@
+@{
+    ViewBag.Title = "List of Movies";
+}
+
+@*code*@
+<h1>
+    @ViewBag.Title
+</h1>
+
+@* <div class="row">
+    <div class="col-md-8 offset-md-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(Model => Model.ImageUrl)</th>
+                    <th>@Html.DisplayNameFor(Model => Model.Description)</th>
+                    <th>@Html.DisplayNameFor(Model => Model.Name)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">
+                            <img class="rounded-circle" src="@item.ImageUrl" alt="@item.Name" style="max-width: 150px" />
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(model => item.Description)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(model => item.Name)
+                        </td>
+                       
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div> *@
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="card" style="width:25rem">
+            <div style="display:flex">
+                <div class="card-title">
+                </div>  
+            </div>
+            
+            <div>
+                <img class="card-img-top align-self-stretch" src="https://cdn.pixabay.com/photo/2024/02/24/13/41/ai-generated-8594039_640.jpg" alt="Card image cap">
+            </div>
+
+            <div>
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.Description</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">@item.MovieCategory</li>
+                    <li class="list-group-item">@item.StartDate.ToString("dd MMM yy")</li>
+                    <li class="list-group-item">@item.EndDate.ToString("dd MMM yy")</li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">Add to Cart</a>
+                    <a href="#" class="card-link">show details</a>
+                </div>
+            </div>
+           
+           
+        </div>
+
+    }
+
+</div>
+

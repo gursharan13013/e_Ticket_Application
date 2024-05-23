@@ -1,13 +1,30 @@
 using e_Ticket_Application.Data;
+using e_Ticket_Application.Data.Services;
+using e_Ticket_Application.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using e_Ticket_Application.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+
+// Additional Services 
+builder.Services.AddScoped<IActorServices,ActorService>();
+builder.Services.AddScoped<IMovieServices, MovieServies>();
+builder.Services.AddScoped<IProducerServices,ProducerServices>();
+builder.Services.AddScoped<ICinemaServices,CinemaServices>();
+
 
 builder.Services.AddDbContext<AppDBContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("e_Ticket")));
+
+//builder.Services.AddDefaultIdentity<SampleUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityDbContext>();
+
 
 var app = builder.Build();
 
@@ -24,11 +41,15 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 AppDBInitializer.Seeding(app);
 
